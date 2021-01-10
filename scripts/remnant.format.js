@@ -64,7 +64,6 @@ let mainLocations = {
 let eventNames = {
     'FlickeringHorror': 'DreamEater',
     'Wisp': 'HiveWisps',
-    'TheRisen': 'Reanimators',
     'LizAndLiz': 'LizChicagoTypewriter',
     'Fatty': 'TheUncleanOne',
     'WastelandGuardian': 'Claviger',
@@ -92,7 +91,9 @@ let eventNames = {
     "IceSkimmer": "Sebum",
     "SerpentsFang": "Serpent'sFang",
     "ShamanFlames": "GraveSiege",
-    "BlizzardMage": "Ikro, theIceConjurer"
+    "BlizzardMage": "Ikro, theIceConjurer",
+    "StormCaller": "Stormcaller",
+    "OldManAndConstruct": "Wud"
 }
 
 module.exports = {

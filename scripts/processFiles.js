@@ -2,7 +2,6 @@ let {
     ipcRenderer,
     shell
 } = require('electron');
-let fs = require('fs');
 
 ipcRenderer.send('get-file-path');
 
@@ -25,11 +24,29 @@ let campaignText;
 let profileText;
 
 function getFiles() {
-    getAdventureText();
+    ipcRenderer.send('choose-save', `${saveFilesPath}/${activeFile}`);
 }
+ipcRenderer.on('file-update', (e, payload) => {
+    setData(payload);
+});
 
-function getAdventureText() {
-    fs.readFile(`${saveFilesPath}/${activeFile}`, 'utf-8', (err, data) => {
-        adventureText = data;
-    })
+function setData(data) {
+    let text = data.replace(/[^a-zA-z0-9/.]/g, '');
+    console.log(text);
+    adventureText = data.split('\n');
+    campaignText = data.split("/Game/Campaign_Main/Quest_Campaign_Ward13.Quest_Campaign_Ward13")[0];
+    campaignText = campaignText.split("/Game/Campaign_Main/Quest_Campaign_City.Quest_Campaign_City")[1].replace(/Game/g,'\n');
+    campaignText = campaignText.split('\n');
+
+    let tempList = [];
+    for(event of adventureText) {
+        if(String(event).includes('Adventure')) {
+            tempList.push(event.replace(/[^a-zA-z0-9/.]/g, ''));
+        }
+    }
+    adventureText = tempList[1];
+    adventureText = adventureText.replace(/Game/g, '\n');
+    adventureText = adventureText.split('\n');
+
+    findEvents();
 }
